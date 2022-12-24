@@ -19,7 +19,7 @@ export class Canvas extends Modification {
     utils.canvasOn();
     utils.discardActiveObject();
     utils.arrowMovement();
-    utils.load_UI_lock_objects();
+
     utils.alignCanvasBtn();
     utils.filesBtn();
     utils.files_modal_button(".insert-shape");
@@ -79,13 +79,12 @@ export class Canvas extends Modification {
     right_tools.stroke_width();
     // right_tools.opacity()
     right_tools.duplicate();
-    right_tools.lock();
+
     right_tools.group_objects();
     right_tools.ungroup_objects();
     right_tools.textAlign_left();
     right_tools.textAlign_center();
     right_tools.textAlign_right();
     right_tools.fontStyle();
-    right_tools.undo();
   };
 }

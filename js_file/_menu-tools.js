@@ -503,27 +503,104 @@ export class Menu_tools extends Modification {
   download_as_image() {
     const download_image = document.querySelector("#download-image");
     download_image.onclick = () => {
-      var scaleFactor = 1;
-      this.canvas.setWidth(this.width * scaleFactor);
-      this.canvas.setHeight(this.height * scaleFactor);
-      this.canvas.setZoom(scaleFactor);
+      const b64toBlob = (b64Data, contentType = "", sliceSize = 512) => {
+        const byteCharacters = atob(b64Data);
+        const byteArrays = [];
 
-      this.canvas.renderAll();
+        for (
+          let offset = 0;
+          offset < byteCharacters.length;
+          offset += sliceSize
+        ) {
+          const slice = byteCharacters.slice(offset, offset + sliceSize);
 
-      let display_name = document.querySelector("#file_name").innerHTML;
-      const a = document.createElement("a");
-      document.body.appendChild(a);
-      a.href = this.canvas.toDataURL({
-        format: "png",
-        // quality:  1
+          const byteNumbers = new Array(slice.length);
+          for (let i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+          }
+
+          const byteArray = new Uint8Array(byteNumbers);
+          byteArrays.push(byteArray);
+        }
+
+        const blob = new Blob(byteArrays, { type: contentType });
+        return blob;
+      };
+      let names = ["gwill", "andz"];
+
+      for (let i = 0; i < names.length; i++) {
+        var scaleFactor = 1;
+        this.canvas.setWidth(this.width * scaleFactor);
+        this.canvas.setHeight(this.height * scaleFactor);
+        this.canvas.setZoom(scaleFactor);
+
+        this.canvas.renderAll();
+
+        let display_name = document.querySelector("#file_name").innerHTML;
+        let a = this.canvas.getObjects().filter((e) => {
+          return e.type === "textbox";
+        });
+        a[0].set({ text: names[i] });
+        this.canvas.renderAll();
+        // let imgSrc = document.querySelector(".try").src;
+        let imgSrc = this.canvas
+          .toDataURL("image/jpeg", [0.0, 1.0])
+          .split(",")[1];
+
+        const blob = b64toBlob(imgSrc, "image/jpeg");
+        const blobUrl = URL.createObjectURL(blob);
+
+        const img = document.createElement("img");
+        img.src = blobUrl;
+        // img.width = "200";
+        img.className = "test-image";
+
+        document.body.appendChild(img);
+
+        this.canvas.setHeight(this.canvas.current_height);
+        this.canvas.setWidth(this.canvas.current_width);
+        this.canvas.setZoom(this.canvas.current_canvasScale);
+      }
+      downloadZip();
+      function downloadZip() {
+        var zip = new JSZip();
+        var count = 0;
+        var zipFilename = "zipFilename.zip";
+        let images = document.querySelectorAll(".test-image");
+
+        let [one, two] = images;
+        var urls = [one, two];
+
+        urls.forEach(function (url) {
+          var filename = "filename";
+          // loading a file and add it in a zip file
+          JSZipUtils.getBinaryContent(url.src, function (err, data) {
+            if (err) {
+              throw err; // or handle the error
+            }
+            var img = zip.folder("images");
+            img.file(filename + "_" + count + ".png", data, { binary: true });
+            count++;
+            if (count == urls.length) {
+              zip.generateAsync({ type: "blob" }).then(function (content) {
+                const a = document.createElement("a");
+                a.href = URL.createObjectURL(content);
+                console.log(a);
+                document.body.appendChild(a);
+                a.download = zipFilename;
+                a.click();
+                document.body.removeChild(a);
+
+                // saveAs(content, "zipFilename");
+              });
+            }
+          });
+        });
+      }
+      let images = document.querySelectorAll(".test-image");
+      images.forEach((e) => {
+        e.remove();
       });
-      a.download = `${display_name}.png`;
-      a.click();
-      document.body.removeChild(a);
-
-      this.canvas.setHeight(this.canvas.current_height);
-      this.canvas.setWidth(this.canvas.current_width);
-      this.canvas.setZoom(this.canvas.current_canvasScale);
     };
   }
 

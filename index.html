@@ -84,9 +84,7 @@
         </div>
 
         <div class="zoom_and_undo_container">
-            <div class="undo-container">
-                <button class="btn btn-primary" id="undo"> &#8630;</button>
-            </div>
+
 
             <div class="zoom-container">
                 <button id="zoomOut">&#9866;</button>
@@ -119,13 +117,7 @@
 
         <div class="canvas-tools-container">
 
-            <ul class="btn-tools">
-                <li id="btn-properties" class="active">Properties</li>
-                <li id="btn-insert">Insert</li>
-                <li id="btn-lockObjects">Objects</li>
 
-
-            </ul>
 
             <div class="box-tools-container">
                 <div id="box-properties-tools" class="active">
@@ -133,21 +125,17 @@
                     <div class="top-icons">
                         <ul>
                             <li title="duplicate" id="duplicate" class="duplicate-btn">&#10064;</li>
-                            <li title="lock Element" id="lock" class="lock-btn  ">&#x1F512;</li>
+
                             <li title="group" id="group" class="folder-btn  ">&#128448;</li>
                             <li title="ungroup" id="ungroup" class="folder-btn  ">&#128449;</li>
-
+                            <li id="trim-image"><img src="./public/image/crop.png" width="23" alt=""></li>
                         </ul>
                     </div>
 
 
                     <!-- style - arrange -crop tab -->
                     <div class="box-properties-tab">
-                        <ul>
-                            <li id="style-btn" class="active">Style</li>
-                            <li id="crop-btn">Crop</li>
-                            <li id="canvas-btn">Canvas</li>
-                        </ul>
+
                         <div class="style-container ">
                             <div class="fonts_and_text-center">
                                 <div class="fonts-Select-size">
@@ -230,7 +218,7 @@
 
                         </div>
                         <div class="crop-container">
-                            <li id="trim-image">Quick Crop</li>
+
 
 
 
@@ -271,32 +259,22 @@
 
                     </div>
                 </div>
-                <div id="box-lock-objects-tools">
-                    <ul>
-                        <li id="lock_objects" class="active">Locked Objects</li>
-                        <li id="hide_objects">Hide Objects</li>
-                    </ul>
 
-                    <div class="lock-object-container">
-
-                    </div>
-                </div>
 
 
             </div>
 
         </div>
 
-
     </main>
+    <script src="./library_js/filesaver.js"></script>
 
+    <script src="./library_js/jszip-utils.min.js"></script>
 
-
+    <script src="./library_js/jszip.min.js"></script>
 
     <script type="module" src="./main.js"></script>
-
     <script src="./library_js/fabric.js"></script>
-
     <script src="./library_js/fonts.js"></script>
     <script src="./print_js/print.js"></script>
 

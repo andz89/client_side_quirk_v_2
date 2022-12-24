@@ -247,24 +247,6 @@ export class Utilities extends Modification {
     });
   }
 
-  load_UI_lock_objects() {
-    setTimeout(() => {
-      let objects = this.canvas.getObjects();
-      let lock_objects = objects.filter((each_object) => {
-        if (
-          each_object.lockMovementX === true &&
-          each_object.lockMovementY === true &&
-          each_object.name !== "canvas_stroke"
-        ) {
-          return each_object;
-        }
-      });
-      if (lock_objects.length === 0) {
-        return false;
-      }
-      this.display_lockObjects(lock_objects);
-    }, 1000);
-  }
   alignCanvasBtn() {
     document.querySelector(".align-canvas").addEventListener("click", () => {
       let a = document.querySelector(".align-canvas-buttons-container");
