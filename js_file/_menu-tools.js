@@ -500,9 +500,9 @@ export class Menu_tools extends Modification {
     };
   }
 
-  download_as_image() {
-    const download_image = document.querySelector("#download-image");
-    download_image.onclick = () => {
+  preview_image() {
+    const preview_image = document.querySelector("#preview-image");
+    preview_image.onclick = () => {
       const b64toBlob = (b64Data, contentType = "", sliceSize = 512) => {
         const byteCharacters = atob(b64Data);
         const byteArrays = [];
@@ -536,7 +536,7 @@ export class Menu_tools extends Modification {
 
         this.canvas.renderAll();
 
-        let display_name = document.querySelector("#file_name").innerHTML;
+        // let display_name = document.querySelector("#file_name").innerHTML;
         let a = this.canvas.getObjects().filter((e) => {
           return e.type === "textbox";
         });
@@ -552,29 +552,39 @@ export class Menu_tools extends Modification {
 
         const img = document.createElement("img");
         img.src = blobUrl;
-        // img.width = "200";
+        img.width = "600";
         img.className = "test-image";
 
-        document.body.appendChild(img);
+        setTimeout(() => {
+          document.querySelector(".modal-body").appendChild(img);
+          document.querySelector(".modal").style.display = "block";
+        }, 1000);
 
         this.canvas.setHeight(this.canvas.current_height);
         this.canvas.setWidth(this.canvas.current_width);
         this.canvas.setZoom(this.canvas.current_canvasScale);
       }
+    };
+  }
+  download_as_Zip() {
+    const download_as_Zip = document.querySelector("#download_as_Zip");
+    download_as_Zip.onclick = () => {
+      let images = document.querySelectorAll(".test-image");
+
+      var urls = [];
+      images.forEach((e) => {
+        urls.push(e.src);
+      });
       downloadZip();
       function downloadZip() {
         var zip = new JSZip();
         var count = 0;
         var zipFilename = "zipFilename.zip";
-        let images = document.querySelectorAll(".test-image");
-
-        let [one, two] = images;
-        var urls = [one, two];
 
         urls.forEach(function (url) {
           var filename = "filename";
           // loading a file and add it in a zip file
-          JSZipUtils.getBinaryContent(url.src, function (err, data) {
+          JSZipUtils.getBinaryContent(url, function (err, data) {
             if (err) {
               throw err; // or handle the error
             }
@@ -597,13 +607,13 @@ export class Menu_tools extends Modification {
           });
         });
       }
-      let images = document.querySelectorAll(".test-image");
-      images.forEach((e) => {
-        e.remove();
-      });
+
+      // let images = document.querySelectorAll(".test-image");
+      // images.forEach((e) => {
+      //   e.remove();
+      // });
     };
   }
-
   print() {
     let printCanvas = document.querySelector("#printCanvas");
 

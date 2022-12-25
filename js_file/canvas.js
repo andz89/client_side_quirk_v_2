@@ -50,7 +50,8 @@ export class Canvas extends Modification {
     menu_tools.align_bottom();
     menu_tools.dragAndDrop_image();
     menu_tools.paste_image();
-    menu_tools.download_as_image();
+    menu_tools.preview_image();
+    menu_tools.download_as_Zip();
     menu_tools.print();
 
     menu_tools.trim();

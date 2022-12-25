@@ -8,7 +8,7 @@
 
 @import 'config';
 @import 'utilities';
-@import 'modal_createCanvas';
+@import 'display_images';
 @import 'canvas-tools';
 @import 'canvas';
 @import 'spinner';
@@ -31,7 +31,7 @@ body{
     color: #333;
     background-color: rgb(77, 72, 72);
 
-  // overflow: hidden;
+  overflow: hidden;
 }
 header{
     width:100%;

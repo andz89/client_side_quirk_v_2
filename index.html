@@ -36,7 +36,7 @@
                 <li class="dropbtn dropbtn-files files-btn">Files</li>
                 <div id="myDropdown" class="dropdown-content">
                     <a id="save_json">Save</a>
-                    <a id="download-image">Download as Image</a>
+                    <a id="preview-image">loop Name</a>
                     <a id="printCanvas">Print</a>
 
                     <a href="index.html" target="_blank">New Tab</a>
@@ -267,14 +267,38 @@
         </div>
 
     </main>
-    <script src="./library_js/filesaver.js"></script>
 
+    <div id="modal-container" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h2>Preview</h2>
+                <div class="close-container">
+                    <div id="download_as_Zip">
+                        Download
+                    </div>
+                    <div>
+                        <span class="close">Close</span>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-body">
+
+            </div>
+
+        </div>
+    </div>
+    <script src="./library_js/filesaver.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
     <script src="./library_js/jszip-utils.min.js"></script>
+
 
     <script src="./library_js/jszip.min.js"></script>
 
     <script type="module" src="./main.js"></script>
-    <script src="./library_js/fabric.js"></script>
+    <script src="./library_js/fabric.js"></script>z
     <script src="./library_js/fonts.js"></script>
     <script src="./print_js/print.js"></script>
 
