@@ -14,7 +14,7 @@
         
         padding: 30px;
         display: flex;
-        margin: 20px auto;
+        margin: 20px auto 0 auto;
         flex-direction: column;
         align-items: center;
         // justify-content: center;
@@ -57,22 +57,23 @@
             .input-container{
                 display: flex;
                 margin-top: 5px;
-        
+                padding: 0 15px;
+              align-items: center;;
             }
                     input{
                     width: 100%;
-                  
+
                         width: 400px;
-                        margin: 1px 10px;
+                        margin: 1px 5px;
                 
                         gap: 0;
-                        border: none;
+                        border: 1px solid rgb(216, 213, 213);;
                         height: 40px;
          
                     
                     }
                     input:focus{
-                        border: none;
+              
                       
                    
                         gap: 0;
@@ -81,6 +82,10 @@
                     
                      
                     }   
+                    input::placeholder{
+                      padding: 0 20px;
+                      font-size: 1rem;
+                    }
                   .delete{
                     margin: 0 10px;
                     // float: right;
@@ -105,11 +110,7 @@
   
 
   
-  .modal-footer {
 
-    padding: 10px;
-   
-  }
   
   .close {
     color: #ccc;
@@ -127,7 +128,12 @@
       }
   
       
+      .modal-footer {
 
+        width: 700px;
+        margin: 0 auto;
+     
+    }
 
   }
   

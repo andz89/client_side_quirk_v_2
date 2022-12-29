@@ -38,6 +38,7 @@ file.get_file_json();
 
 //  insert-name
 let element = document.querySelector(".excel-html");
+let list_names = document.querySelector(".list_names");
 
 let add_name_btn = document.querySelector("#add_name_btn");
 add_name_btn.addEventListener("click", () => {
@@ -48,7 +49,6 @@ window.addEventListener("paste", function (e) {
   e.preventDefault();
 
   let parent = document.querySelector(".list-name-container");
-  let list_names = document.querySelector(".list_names");
   parent.style.display = "block";
 
   element.innerHTML = e.clipboardData.getData("text/html");
@@ -64,11 +64,13 @@ window.addEventListener("paste", function (e) {
       div.classList.add("input-container");
       div.innerHTML = `
                 
-                <input type="text" value="  ${a} ">
-                <input type="text" value="  ${b} ">
-         
+          <input type="text" value="  ${a} ">
+          <input type="text" value="  ${b} ">
 
-                <span class="btn btn-sm btn-danger delete text text-white">Delete</span>
+          <div>
+          <span class="btn btn-sm btn-danger delete text text-white">Remove</span>
+          </div>
+
                 `;
       list_names.appendChild(div);
     } else {
@@ -79,10 +81,12 @@ window.addEventListener("paste", function (e) {
       div.classList.add("input-container");
       div.innerHTML = `
                 
-<input type="text" value="  ${a} ">
-<input type="text" value="  ${b} ">
+      <input type="text" value="  ${a} ">
+      <input type="text" value="  ${b} ">
 
-                <span class="btn btn-sm btn-danger delete text text-white">Delete</span>
+      <div>
+      <span class="btn btn-sm btn-danger delete text text-white">Remove</span>
+      </div>
 
 
               
@@ -92,6 +96,28 @@ window.addEventListener("paste", function (e) {
       list_names.appendChild(div);
     }
   });
-
-  // console.log(arr);
 });
+document
+  .querySelector(".list-name-container")
+  .addEventListener("click", (e) => {
+    if (e.target.classList.contains("add-rows")) {
+      console.log("sdf");
+      let div = document.createElement("div");
+      div.classList.add("input-container");
+      div.innerHTML = `
+              
+        <input type="text" value="" placeholder="click to type">
+        <input type="text" value="" placeholder="click to type">
+
+
+        <div>
+        <span class="btn btn-sm btn-danger delete text text-white">Remove</span>
+        </div>
+
+              `;
+      list_names.appendChild(div);
+    }
+    if (e.target.classList.contains("delete")) {
+      e.target.parentElement.parentElement.remove();
+    }
+  });
