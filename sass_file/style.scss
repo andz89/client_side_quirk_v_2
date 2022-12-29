@@ -8,6 +8,8 @@
 
 @import 'config';
 @import 'utilities';
+@import 'insert-name';
+
 @import 'display_images';
 @import 'canvas-tools';
 @import 'canvas';
@@ -24,7 +26,7 @@
     padding: 0;
 }
 body{
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Poppins', sans-serif;
     font-size: 1rem;
     line-height: 1.6;
   //  background-color:rgba(87, 86, 86, 0.431);
@@ -33,6 +35,20 @@ body{
 
   overflow: hidden;
 }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+}
+
+
+a{
+  
+  text-decoration: none;
+  color: none;
+}
+
 header{
     width:100%;
    

@@ -30,7 +30,7 @@
             <div> File Name: <span id="file_name"></span> </div>
         </div>
 
-        <div class="sub_header">
+        <div class="sub_header d-flex align-items-center ">
 
             <div class="dropdown dropdown-files files-container">
                 <li class="dropbtn dropbtn-files files-btn">Files</li>
@@ -69,10 +69,10 @@
             |
 
             <div class="align-canvas-container">
-                <div>
-                    <li class="btn btn-primary align-canvas">Align to canvas</li>
+                <button class="btn btn-sm btn-primary  align-canvas">
+                    Align to canvas
 
-                </div>
+                </button>
                 <div class="align-canvas-buttons-container ">
                     <div id="horizontal">Horizontal</div>
                     <div id="vertical">Vertical</div>
@@ -80,6 +80,9 @@
 
                 </div>
 
+            </div>
+            <div>
+                <button id="add_name_btn" class="btn btn-sm btn-light">Add Name</button>
             </div>
         </div>
 
@@ -97,8 +100,33 @@
 
 
     </header>
+    <!-- insert name -->
+    <span class="excel-html" style="display: none;"></span>
+    <div class="list-name-container">
+        <div class="modal-content">
+
+            <div class="textarea-container">
+                <textarea class="" placeholder="paste here to add names"></textarea>
+
+            </div>
+            <div class="header">
+                <div style="width: 300px;">Column 1</div>
+                <div>Column 2</div>
 
 
+            </div>
+            <div class="list_names">
+
+            </div>
+            <div class="modal-footer">
+                <h3>Modal Footer</h3>
+            </div>
+
+
+
+        </div>
+
+    </div>
 
 
 

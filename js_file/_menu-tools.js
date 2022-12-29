@@ -499,9 +499,28 @@ export class Menu_tools extends Modification {
       this.canvas.renderAll();
     };
   }
-
+  //loop name
   preview_image() {
     const preview_image = document.querySelector("#preview-image");
+
+    const modal = document.querySelector("#modal-container");
+
+    const closeBtn = document.querySelector(".close");
+    closeBtn.addEventListener("click", closeModal);
+    window.addEventListener("click", outsideClick);
+
+    // Close
+    function closeModal() {
+      modal.style.display = "none";
+    }
+
+    // Close If Outside Click
+    function outsideClick(e) {
+      if (e.target.className == "modal-body") {
+        modal.style.display = "none";
+      }
+    }
+
     preview_image.onclick = () => {
       const b64toBlob = (b64Data, contentType = "", sliceSize = 512) => {
         const byteCharacters = atob(b64Data);

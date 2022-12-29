@@ -35,26 +35,63 @@ window.addEventListener("resize", () => {
 let file = new Open_file();
 
 file.get_file_json();
-const modalBtn = document.querySelector("#modal-btn");
-const modal = document.querySelector("#modal-container");
 
-const closeBtn = document.querySelector(".close");
-closeBtn.addEventListener("click", closeModal);
-window.addEventListener("click", outsideClick);
+//  insert-name
+let element = document.querySelector(".excel-html");
 
-// Open
-function openModal() {
-  modal.style.display = "block";
-}
+let add_name_btn = document.querySelector("#add_name_btn");
+add_name_btn.addEventListener("click", () => {
+  let parent = document.querySelector(".list-name-container");
+  parent.style.display = "block";
+});
+window.addEventListener("paste", function (e) {
+  e.preventDefault();
 
-// Close
-function closeModal() {
-  modal.style.display = "none";
-}
+  let parent = document.querySelector(".list-name-container");
+  let list_names = document.querySelector(".list_names");
+  parent.style.display = "block";
 
-// Close If Outside Click
-function outsideClick(e) {
-  if (e.target.className == "modal-body") {
-    modal.style.display = "none";
-  }
-}
+  element.innerHTML = e.clipboardData.getData("text/html");
+
+  let aa = document.querySelectorAll("table tr");
+
+  aa.forEach((element) => {
+    if (element.children.length > 1) {
+      let a = element.children[0].innerText;
+      let b = element.children[1].innerText;
+
+      let div = document.createElement("div");
+      div.classList.add("input-container");
+      div.innerHTML = `
+                
+                <input type="text" value="  ${a} ">
+                <input type="text" value="  ${b} ">
+         
+
+                <span class="btn btn-sm btn-danger delete text text-white">Delete</span>
+                `;
+      list_names.appendChild(div);
+    } else {
+      let a = element.children[0].innerText;
+      let b = " ";
+
+      let div = document.createElement("div");
+      div.classList.add("input-container");
+      div.innerHTML = `
+                
+<input type="text" value="  ${a} ">
+<input type="text" value="  ${b} ">
+
+                <span class="btn btn-sm btn-danger delete text text-white">Delete</span>
+
+
+              
+
+            `;
+
+      list_names.appendChild(div);
+    }
+  });
+
+  // console.log(arr);
+});
