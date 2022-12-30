@@ -106,7 +106,8 @@
         <div class="modal-content">
 
             <div class="textarea-container">
-                <textarea class="" placeholder="paste here the copied data from excel or google spreadsheet"></textarea>
+                <textarea class=""
+                    placeholder="paste here the copied column data from excel or google spreadsheet"></textarea>
 
             </div>
             <div class="header">
@@ -116,7 +117,7 @@
 
 
             </div>
-            <div class="list_names">
+            <div class="list-names">
 
             </div>
 
@@ -125,16 +126,39 @@
 
         </div>
         <div class="modal-footer d-flex justify-content-end p-1 bg-dark">
-            <div class="btn btn-sm btn-light">
-                <h4> Close </h4>
-            </div>
-            <div class="btn btn-sm btn-light">
-                <h4> Save </h4>
+
+            <div class="btn btn-sm btn-light save">
+                <h4> Save and close</h4>
             </div>
 
         </div>
     </div>
 
+
+    <!-- choose colum -->
+
+    <div class="choose-columm-container">
+        <div class="modal-content form">
+
+            <div class="custom-select" style="width:200px;">
+                <select>
+                    <option value="0">Select Column:</option>
+                    <option value="column-1">Column 1</option>
+                    <option value="column-1">Column 2</option>
+
+                </select>
+            </div>
+
+            <div class="modal-footer">
+
+                <div class="btn btn-sm btn-primary text text-center close">
+                    <h3 style="width: 100px;">Close</h3>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
 
 
 

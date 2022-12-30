@@ -38,13 +38,19 @@ file.get_file_json();
 
 //  insert-name
 let element = document.querySelector(".excel-html");
-let list_names = document.querySelector(".list_names");
-
+let list_names = document.querySelector(".list-names");
+let parent = document.querySelector(".list-name-container");
 let add_name_btn = document.querySelector("#add_name_btn");
 add_name_btn.addEventListener("click", () => {
-  let parent = document.querySelector(".list-name-container");
   parent.style.display = "block";
 });
+
+let saveCloseBtn = document.querySelector(".list-name-container .save");
+// Close
+saveCloseBtn.addEventListener("click", () => {
+  parent.style.display = "none";
+});
+
 window.addEventListener("paste", function (e) {
   e.preventDefault();
 
@@ -64,8 +70,8 @@ window.addEventListener("paste", function (e) {
       div.classList.add("input-container");
       div.innerHTML = `
                 
-          <input type="text" value="  ${a} ">
-          <input type="text" value="  ${b} ">
+          <input type="text" value="${a}">
+          <input type="text" value="${b}">
 
           <div>
           <span class="btn btn-sm btn-danger delete text text-white">Remove</span>
@@ -73,6 +79,7 @@ window.addEventListener("paste", function (e) {
 
                 `;
       list_names.appendChild(div);
+      div.scrollIntoView();
     } else {
       let a = element.children[0].innerText;
       let b = " ";
@@ -81,8 +88,8 @@ window.addEventListener("paste", function (e) {
       div.classList.add("input-container");
       div.innerHTML = `
                 
-      <input type="text" value="  ${a} ">
-      <input type="text" value="  ${b} ">
+      <input type="text" value="${a}">
+      <input type="text" value="${b}">
 
       <div>
       <span class="btn btn-sm btn-danger delete text text-white">Remove</span>
@@ -94,6 +101,7 @@ window.addEventListener("paste", function (e) {
             `;
 
       list_names.appendChild(div);
+      div.scrollIntoView();
     }
   });
 });
@@ -104,6 +112,7 @@ document
       console.log("sdf");
       let div = document.createElement("div");
       div.classList.add("input-container");
+
       div.innerHTML = `
               
         <input type="text" value="" placeholder="click to type">
@@ -116,6 +125,7 @@ document
 
               `;
       list_names.appendChild(div);
+      div.scrollIntoView();
     }
     if (e.target.classList.contains("delete")) {
       e.target.parentElement.parentElement.remove();
