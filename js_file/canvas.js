@@ -54,7 +54,7 @@ export class Canvas extends Modification {
     menu_tools.preview_image();
     menu_tools.download_as_Zip();
     menu_tools.print();
-
+    menu_tools.insertData();
     menu_tools.trim();
 
     menu_tools.upload_and_clip();
@@ -81,7 +81,7 @@ export class Canvas extends Modification {
     right_tools.stroke_width();
     // right_tools.opacity()
     right_tools.duplicate();
-
+    right_tools.sentenceCase();
     right_tools.group_objects();
     right_tools.ungroup_objects();
     right_tools.textAlign_left();

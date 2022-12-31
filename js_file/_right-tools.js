@@ -1,6 +1,54 @@
 import { Modification } from "./_modification.js";
 
 export class Right_tools extends Modification {
+  sentenceCase() {
+    document.querySelector("#sentence-case").addEventListener("click", () => {
+      let active = this.canvas.getActiveObject();
+      if (active.name === "column-1-textbox") {
+        //to change the selected textbox to sentence case
+        let a = active.text.replace(/,(?=[^\s])/g, ", ");
+
+        let b = a.replace(/\w\S*/g, function (txt) {
+          return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        });
+        active.set({ text: b });
+        this.canvas.renderAll();
+        //to change the column text to sentence case
+        let names = document.querySelectorAll(
+          ".list-name-container .list-names .input-container"
+        );
+        let element = document.querySelector(".same-as-selected");
+
+        if (element.innerText === "Column 1") {
+          names.forEach((element) => {
+            let b = element.children[0].value.replace(/,(?=[^\s])/g, ", ");
+            let c = b.replace(/\w\S*/g, function (txt) {
+              return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            });
+            element.children[0].value = c;
+          });
+        }
+        if (element.innerText === "Column 2") {
+          names.forEach((element) => {
+            let b = element.children[1].value.replace(/,(?=[^\s])/g, ", ");
+            let c = b.replace(/\w\S*/g, function (txt) {
+              return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            });
+            element.children[0].value = c;
+          });
+        }
+      } else {
+        let a = active.text.replace(/,(?=[^\s])/g, ", ");
+
+        let b = a.replace(/\w\S*/g, function (txt) {
+          return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        });
+        active.set({ text: b });
+        this.canvas.renderAll();
+      }
+    });
+  }
+
   fontSize(selector) {
     let fontSize = document.querySelector(selector);
     fontSize.oninput = (e) => {
@@ -269,7 +317,6 @@ export class Right_tools extends Modification {
       // console.log( object._objects[0])
       if (object.type == "group") {
         if (object._objects[0].name == "clip-stroke") {
-          console.log(object._objects[0].name);
           let a = object._objects[0];
           a.strokeWidth = parseInt(value, 10);
           (a.objectCaching = false), (a.dirty = true);
@@ -474,7 +521,6 @@ export class Right_tools extends Modification {
   textAlign_left() {
     document.querySelector("#alignLeftText");
     alignLeftText.onclick = () => {
-      console.log(window.getSelection().toString());
       let object = this.canvas.getActiveObject();
       if (!object) {
         return false;
@@ -543,7 +589,6 @@ export class Right_tools extends Modification {
       let object = this.canvas.getActiveObject();
       if (e.target.value !== "Times New Roman") {
         loadAndUse(e.target.value);
-        console.log("1");
       } else {
         object.set("fontFamily", e.target.value);
         this.canvas.renderAll();

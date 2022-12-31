@@ -37,7 +37,7 @@
                 <div id="myDropdown" class="dropdown-content">
                     <a id="save_json">Save</a>
                     <a id="preview-image">loop Name</a>
-                    <a id="printCanvas">Print</a>
+
 
                     <a href="index.html" target="_blank">New Tab</a>
 
@@ -103,6 +103,19 @@
     <!-- insert name -->
     <span class="excel-html" style="display: none;"></span>
     <div class="list-name-container">
+        <div class="modal-header d-flex justify-content-start  bg-dark">
+
+            <div>
+                <div class="btn btn-sm btn-primary add-rows">+ Add Rows</div>
+            </div>
+            <div>
+                <div class="btn btn-sm btn-primary swap-column">Swap Column</div>
+            </div>
+            <div>
+                <div class="btn btn-sm btn-primary clear-all">clear rows</div>
+            </div>
+
+        </div>
         <div class="modal-content">
 
             <div class="textarea-container">
@@ -110,13 +123,12 @@
                     placeholder="paste here the copied column data from excel or google spreadsheet"></textarea>
 
             </div>
-            <div class="header">
+
+            <div class="menu-controller d-flex justify-content-start">
                 <div style="width: 300px;">Column 1</div>
-                <div style="width: 250px;">Column 2</div>
-                <div class="btn btn-sm btn-primary add-rows">+ Add Rows</div>
-
-
+                <div>Column 2</div>
             </div>
+
             <div class="list-names">
 
             </div>
@@ -125,12 +137,10 @@
 
 
         </div>
-        <div class="modal-footer d-flex justify-content-end p-1 bg-dark">
-
-            <div class="btn btn-sm btn-light save">
-                <h4> Save and close</h4>
+        <div class="modal-footer d-flex justify-content-end">
+            <div class="btn btn-sm btn-dark save">
+                Save and close
             </div>
-
         </div>
     </div>
 
@@ -139,7 +149,13 @@
 
     <div class="choose-columm-container">
         <div class="modal-content form">
+            <div class="modal-footer">
 
+                <div class="btn btn-sm btn-primary text text-center close">
+                    <h3 style="width: 100px;">Close</h3>
+                </div>
+
+            </div>
             <div class="custom-select" style="width:200px;">
                 <select>
                     <option value="0">Select Column:</option>
@@ -149,13 +165,7 @@
                 </select>
             </div>
 
-            <div class="modal-footer">
 
-                <div class="btn btn-sm btn-primary text text-center close">
-                    <h3 style="width: 100px;">Close</h3>
-                </div>
-
-            </div>
         </div>
 
     </div>
@@ -222,7 +232,9 @@
                                             src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1LjIgOC43NiI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiNjY2M7fTwvc3R5bGU+PC9kZWZzPjx0aXRsZT5pdGFsaWM8L3RpdGxlPjxnIGlkPSJMYXllcl8yIiBkYXRhLW5hbWU9IkxheWVyIDIiPjxnIGlkPSJMYXllcl80IiBkYXRhLW5hbWU9IkxheWVyIDQiPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTUuMjEsMi43NEM0LjA4LDIuODMsNCwyLjkxLDMuNzksMy44OUwyLjcxLDkuNTRjLS4yLDEtLjA4LDEuMTIsMSwxLjJsLS4wNy4zOEguMDlsLjA5LS4zOGMxLjA5LS4xLDEuMjEtLjE5LDEuNDEtMS4yTDIuNjgsMy44OWMuMTktMSwuMDgtMS4wNi0xLjA1LTEuMTVsLjA4LS4zOEg1LjNaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMC4wOSAtMi4zNikiLz48L2c+PC9nPjwvc3ZnPg=="
                                             width="8" alt="" />
                                     </label>
-
+                                    <label id="sentence-case">
+                                        <img class=" " src="public/image/case.png" width="18" alt="" />
+                                    </label>
                                     <!-- alignLeftText -->
                                     <label id="alignLeftText">
                                         <img class=" "
@@ -336,6 +348,7 @@
                     <div id="download_as_Zip">
                         Download
                     </div>
+                    <a id="printCanvas">Print</a>
                     <div>
                         <span class="close">Close</span>
 
@@ -346,6 +359,7 @@
             <div class="modal-body">
 
             </div>
+
 
         </div>
     </div>

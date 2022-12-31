@@ -76,7 +76,7 @@ export class Open_file {
         ],
         background: "#fff",
       },
-      size: { w: 3510, h: 2460 },
+      size: { w: 3510, h: 2420 },
       fileHandle: { s: {} },
     };
 

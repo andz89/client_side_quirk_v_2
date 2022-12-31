@@ -361,7 +361,6 @@ export class Menu_tools extends Modification {
   align_left() {
     let align_left = document.querySelector("#align_left");
     align_left.onclick = () => {
-      console.log("align text");
       let object = this.canvas.getActiveObjects();
       if (object.length < 2) {
         return false;
@@ -499,25 +498,174 @@ export class Menu_tools extends Modification {
       this.canvas.renderAll();
     };
   }
+
+  //insert data
+  insertData() {
+    //  insert-data
+    let element = document.querySelector(".excel-html");
+    let list_names = document.querySelector(".list-names");
+    let parent = document.querySelector(".list-name-container");
+    let add_name_btn = document.querySelector("#add_name_btn");
+    add_name_btn.addEventListener("click", () => {
+      parent.style.display = "block";
+    });
+
+    let saveCloseBtn = document.querySelector(".list-name-container .save");
+    // Close
+    saveCloseBtn.addEventListener("click", () => {
+      parent.style.display = "none";
+    });
+
+    window.addEventListener("paste", function (e) {
+      e.preventDefault();
+
+      let parent = document.querySelector(".list-name-container");
+      parent.style.display = "block";
+
+      element.innerHTML = e.clipboardData.getData("text/html");
+
+      let aa = document.querySelectorAll("table tr");
+
+      aa.forEach((element) => {
+        if (element.children.length > 1) {
+          let a = element.children[0].innerText;
+          let b = element.children[1].innerText;
+
+          let div = document.createElement("div");
+          div.classList.add("input-container");
+          div.innerHTML = `
+                
+          <input type="text" value="${a}">
+          <input type="text" value="${b}">
+
+          <div>
+          <span class="btn btn-sm btn-danger delete text text-white">Remove</span>
+          </div>
+
+                `;
+          list_names.appendChild(div);
+          div.scrollIntoView();
+        } else {
+          let a = element.children[0].innerText;
+          let b = " ";
+
+          let div = document.createElement("div");
+          div.classList.add("input-container");
+          div.innerHTML = `
+                
+      <input type="text" value="${a}">
+      <input type="text" value="${b}">
+
+      <div>
+      <span class="btn btn-sm btn-danger delete text text-white">Remove</span>
+      </div>
+
+
+              
+
+            `;
+
+          list_names.appendChild(div);
+          div.scrollIntoView();
+        }
+      });
+    });
+
+    //insert name tools
+    document
+      .querySelector(".list-name-container")
+      .addEventListener("click", (e) => {
+        if (e.target.classList.contains("add-rows")) {
+          console.log("sdf");
+          let div = document.createElement("div");
+          div.classList.add("input-container");
+
+          div.innerHTML = `
+              
+        <input type="text" value="" placeholder="click to type">
+        <input type="text" value="" placeholder="click to type">
+
+
+        <div>
+        <span class="btn btn-sm btn-danger delete text text-white">Remove</span>
+        </div>
+
+              `;
+          list_names.appendChild(div);
+          div.scrollIntoView();
+        }
+
+        //remove row
+        if (e.target.classList.contains("delete")) {
+          e.target.parentElement.parentElement.remove();
+        }
+        //swap column
+        if (e.target.classList.contains("swap-column")) {
+          let names = document.querySelectorAll(
+            ".list-name-container .list-names .input-container"
+          );
+          let column_A = [];
+          let column_B = [];
+          names.forEach((element) => {
+            column_A.push(element.children[0].value);
+            column_B.push(element.children[1].value);
+
+            column_A.forEach((text) => {
+              //column B input
+              element.children[1].value = text;
+              let a = this.canvas.getObjects().filter((e) => {
+                return e.name === "column-1-textbox";
+              });
+              a[0].set({ text: text });
+              this.canvas.renderAll();
+            });
+            column_B.forEach((text) => {
+              //column A input
+              element.children[0].value = text;
+            });
+          });
+        }
+        //clear all rows
+        if (e.target.classList.contains("clear-all")) {
+          let names = document.querySelectorAll(
+            ".list-name-container .list-names .input-container"
+          );
+          names.forEach((element) => {
+            element.remove();
+          });
+        }
+      });
+  }
+
   //loop name
   preview_image() {
     const preview_image = document.querySelector("#preview-image");
 
     const modal = document.querySelector("#modal-container");
 
-    const closeBtn = document.querySelector(".close");
+    const closeBtn = document.querySelector(".modal .close");
     closeBtn.addEventListener("click", closeModal);
     window.addEventListener("click", outsideClick);
 
     // Close
     function closeModal() {
       modal.style.display = "none";
+
+      let printImageView = document.querySelectorAll(".print-view-img");
+      printImageView.forEach((item) => {
+        item.remove();
+      });
     }
 
     // Close If Outside Click
     function outsideClick(e) {
       if (e.target.className == "modal-body") {
         modal.style.display = "none";
+
+        let printImageView = document.querySelectorAll(".print-view-img");
+        printImageView.forEach((item) => {
+          item.remove();
+        });
       }
     }
 
@@ -558,6 +706,15 @@ export class Menu_tools extends Modification {
           arrayName.push(element.children[1].value);
         });
       }
+      if (text.innerText === "Column 1") {
+        let a = document.querySelectorAll(
+          ".list-name-container .list-names .input-container"
+        );
+
+        a.forEach((element) => {
+          arrayName.push(element.children[0].value);
+        });
+      }
       let names = arrayName;
 
       for (let i = 0; i < names.length; i++) {
@@ -570,7 +727,7 @@ export class Menu_tools extends Modification {
 
         // let display_name = document.querySelector("#file_name").innerHTML;
         let a = this.canvas.getObjects().filter((e) => {
-          return e.type === "textbox";
+          return e.name === "column-1-textbox";
         });
         a[0].set({ text: names[i] });
         this.canvas.renderAll();
@@ -585,7 +742,7 @@ export class Menu_tools extends Modification {
         const img = document.createElement("img");
         img.src = blobUrl;
         img.width = "600";
-        img.className = "test-image";
+        img.className = "print-view-img";
 
         setTimeout(() => {
           document.querySelector(".modal-body").appendChild(img);
@@ -601,22 +758,52 @@ export class Menu_tools extends Modification {
 
   //choose column
   chooseColumn() {
-    window.addEventListener("dblclick", () => {
-      let activeObject = this.canvas.getActiveObject();
-
-      if (activeObject && activeObject.name === "column-1-textbox") {
-        document.querySelector(".choose-columm-container").style.display =
-          "block";
-        this.canvas.discardActiveObject(activeObject);
-        console.log("sssssss");
+    const doubleClick = (e) => {
+      if (e.target && e.target.name == "column-1-textbox") {
+        let activeObject = this.canvas.getActiveObject();
+        if (activeObject && activeObject.name === "column-1-textbox") {
+          document.querySelector(".choose-columm-container").style.display =
+            "block";
+          this.canvas.discardActiveObject(activeObject);
+          this.canvas.renderAll();
+        }
       }
+    };
+    this.canvas.on({
+      "mouse:dblclick": doubleClick,
     });
+
     //close button
     document
       .querySelector(".choose-columm-container .close")
       .addEventListener("click", () => {
         document.querySelector(".choose-columm-container").style.display =
           "none";
+        let element = document.querySelector(".same-as-selected");
+
+        if (element.innerText === "Column 2") {
+          let a = document.querySelectorAll(
+            ".list-name-container .list-names .input-container"
+          );
+
+          let b = this.canvas.getObjects().filter((e) => {
+            return e.name === "column-1-textbox";
+          });
+          b[0].set({ text: a[a.length - 1].children[1].value });
+          this.canvas.renderAll();
+        }
+
+        if (element.innerText === "Column 1") {
+          let a = document.querySelectorAll(
+            ".list-name-container .list-names .input-container"
+          );
+
+          let b = this.canvas.getObjects().filter((e) => {
+            return e.name === "column-1-textbox";
+          });
+          b[0].set({ text: a[a.length - 1].children[0].value });
+          this.canvas.renderAll();
+        }
       });
 
     // for select columms
@@ -709,7 +896,7 @@ then close all select boxes:*/
   download_as_Zip() {
     const download_as_Zip = document.querySelector("#download_as_Zip");
     download_as_Zip.onclick = () => {
-      let images = document.querySelectorAll(".test-image");
+      let images = document.querySelectorAll(".print-view-img");
 
       var urls = [];
       images.forEach((e) => {
@@ -735,7 +922,7 @@ then close all select boxes:*/
               zip.generateAsync({ type: "blob" }).then(function (content) {
                 const a = document.createElement("a");
                 a.href = URL.createObjectURL(content);
-                console.log(a);
+
                 document.body.appendChild(a);
                 a.download = zipFilename;
                 a.click();
@@ -756,32 +943,17 @@ then close all select boxes:*/
   }
   print() {
     let printCanvas = document.querySelector("#printCanvas");
-
     printCanvas.onclick = () => {
-      let scaleFactor = 1;
-      this.canvas.setWidth(this.width * scaleFactor);
-      this.canvas.setHeight(this.height * scaleFactor);
-      this.canvas.setZoom(scaleFactor);
-      this.canvas.renderAll();
-
-      const dataUrl = this.canvas.toDataURL();
-
-      printJS({
-        printable: [dataUrl],
-        type: "image",
-        imageStyle: `
-display:flex; 
-justify-content:center;
-align-items: center;
-margin: auto;
-max-width: 100%; 
-`,
+      let printImageView = document.querySelectorAll(".print-view-img");
+      let new_array_images = [];
+      printImageView.forEach((e) => {
+        new_array_images.push(e.src);
       });
 
-      this.canvas.setHeight(this.canvas.current_height);
-      this.canvas.setWidth(this.canvas.current_width);
-      this.canvas.setZoom(this.canvas.current_canvasScale);
-      this.canvas.renderAll();
+      printJS({
+        printable: new_array_images,
+        type: "image",
+      });
     };
   }
 
@@ -1121,7 +1293,6 @@ max-width: 100%;
 
           // exist in top
           if (object.top > cropper_box.top) {
-            console.log("exist");
             this.canvas.exist_top = object.top - cropper_box.top;
           } else {
             this.canvas.exist_top = 0;
